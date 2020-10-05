@@ -5,7 +5,11 @@
 ### Requirements
 
 Please download required modules:
+
 requests
+
 PySimpleGUI
+
 Pillow
+
 pyglet

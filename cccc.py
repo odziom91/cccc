@@ -15,7 +15,7 @@ def createcover_1(projectname, filebrowse1, artist1, title1, dolby, label, code)
     cover1 = Image.open(filebrowse1)
     cover1_w, cover1_h = 1500, 1500
     cover1 = cover1.resize((cover1_w, cover1_h))
-    # znaczek DOLBY
+    #todo znaczek DOLBY
     # dolby = Image.open('dolby')
     # import fontów
     title_font1 = ImageFont.truetype('./fonts/TTWPGOTT.ttf', 90)
@@ -53,42 +53,52 @@ def createcover_1(projectname, filebrowse1, artist1, title1, dolby, label, code)
 
 
 def createcover_2(projectname, filebrowse1, filebrowse2, artist1, title1, artist2, title2, dolby, label, code):
-    # todo - dla dwóch albumów!
     # nowy obraz
     image_w, image_h = 1520, 2410
     im = Image.new('RGB', (image_w, image_h), (255, 255, 255))
-    # import coveru oraz resize
+    # import coverów oraz resize
     cover1 = Image.open(filebrowse1)
-    cover1_w, cover1_h = 1500, 1500
+    cover1_w, cover1_h = 750, 750
     cover1 = cover1.resize((cover1_w, cover1_h))
-    # znaczek DOLBY
-    # dolby = Image.open('dolby')
+    cover2 = Image.open(filebrowse2)
+    cover2_w, cover2_h = 750, 750
+    cover2 = cover2.resize((cover2_w, cover2_h))
+    #todo znaczek DOLBY
+    #dolby = Image.open('dolby')
     # import fontów
     title_font1 = ImageFont.truetype('./fonts/TTWPGOTT.ttf', 90)
     title_font2 = ImageFont.truetype('./fonts/TTWPGOTT.ttf', 75)
-
     # rysowanie linii marginesów
     draw = ImageDraw.Draw(im)
     draw.line((0, 3, 1520, 3), fill=(0, 0, 0), width=8)
     draw.line((0, 2406, 1520, 2406), fill=(0, 0, 0), width=8)
     # wklejanie coveru do zawartości obrazu
-    im.paste(cover1, (10, 60))
-    # title - linia #1
+    im.paste(cover1, (385, 60))
+    im.paste(cover2, (385, 1050))
+    # album 1 - linia #1
     tl1w, tl1h = draw.textsize(artist1, title_font1)
-    tl1p = ((image_w - tl1w) / 2, 1700)
+    tl1p = ((image_w-tl1w)/2, 830)
     draw.text(tl1p, artist1, font=title_font1, fill=(0, 0, 0, 0), align="center")
-    # title - linia #2
+    # album 1 - linia #2
     tl2w, tl2h = draw.textsize(title1, title_font1)
-    tl2p = ((image_w - tl2w) / 2, 1800)
+    tl2p = ((image_w - tl2w) / 2, 930)
     draw.text(tl2p, title1, font=title_font1, fill=(0, 0, 0, 0))
-    # numer taśmy
-    tl4w, tl4h = draw.textsize(label + " - " + code, title_font2)
-    tl4p = ((image_w - tl4w) / 2, 2175)
-    draw.text(tl4p, label + " - " + code, font=title_font2, fill=(0, 0, 0, 0))
-    # znaczek dolby
-    tl5w, tl5h = draw.textsize(dolby, title_font2)
-    tl5p = ((image_w - tl5w) / 2, 2250)
-    draw.text(tl5p, dolby, font=title_font2, fill=(0, 0, 0, 0))
+    # album 2 - linia #1
+    tl3w, tl3h = draw.textsize(artist2, title_font1)
+    tl3p = ((image_w - tl3w) / 2, 1820)
+    draw.text(tl3p, artist2, font=title_font1, fill=(0, 0, 0, 0))
+    # album 2 - linia #2
+    tl4w, tl4h = draw.textsize(title2, title_font1)
+    tl4p = ((image_w - tl4w) / 2, 1920)
+    draw.text(tl4p, title2, font=title_font1, fill=(0, 0, 0, 0))
+    # info - linia #1
+    tl5w, tl5h = draw.textsize(label + " - " + code, title_font2)
+    tl5p = ((image_w - tl5w) / 2, 2175)
+    draw.text(tl5p, label + " - " + code, font=title_font2, fill=(0, 0, 0, 0))
+    # info - linia #2
+    tl6w, tl6h = draw.textsize(dolby, title_font2)
+    tl6p = ((image_w - tl6w) / 2, 2250)
+    draw.text(tl6p, dolby, font=title_font2, fill=(0, 0, 0, 0))
     # zapis obrazu
     if os.path.exists("covers/" + projectname):
         pass
@@ -151,8 +161,57 @@ def createspine_1(projectname, artist1, title1, dolby, label, code):
     im.save("covers/" + projectname + '/build/tape_spine.jpg', quality=95)
 
 
-def createspine_2():
-    pass
+def createspine_2(projectname, artist1, title1, artist2, title2, dolby, label, code):
+    # nowy obraz
+    image_w, image_h = 2410, 667
+    im = Image.new('RGB', (image_w, image_h), (255, 255, 255))
+    # import fontów
+    title_font2 = ImageFont.truetype('./fonts/TTWPGOTT.ttf', 75)
+    # rysowanie linii marginesów
+    draw = ImageDraw.Draw(im)
+    # poziome linie
+    draw.line((0, 3, 2410, 3), fill=(0, 0, 0), width=8)
+    draw.line((0, 664, 2410, 664), fill=(0, 0, 0), width=8)
+    draw.line((0, 374, 2410, 374), fill=(0, 0, 0), width=8)
+    # pionowe linie
+    draw.line((3, 0, 3, 667), fill=(0, 0, 0), width=8)
+    draw.line((2406, 0, 2406, 667), fill=(0, 0, 0), width=8)
+
+    # small title 1 - linia #1
+    tl1w, tl1h = draw.textsize(artist1 + " - " + title1, title_font2)
+    tl1p = ((image_w-tl1w)/2, 20)
+    draw.text(tl1p, artist1 + " - " + title1, font=title_font2, fill=(0, 0, 0, 0), align="center")
+    # small title 1 - linia #2
+    tl2w, tl2h = draw.textsize(artist2 + " - " + title2, title_font2)
+    tl2p = ((image_w - tl2w) / 2, 105)
+    draw.text(tl2p, artist2 + " - " + title2, font=title_font2, fill=(0, 0, 0, 0))
+    # small title 1 - linia #3
+    tl3w, tl3h = draw.textsize(label + " - " + code, title_font2)
+    tl3p = ((image_w - tl3w) / 2, 190)
+    draw.text(tl3p, label + " - " + code, font=title_font2, fill=(0, 0, 0, 0))
+    # small title 1 - linia #4
+    tl4w, tl4h = draw.textsize(dolby, title_font2)
+    tl4p = ((image_w - tl4w) / 2, 275)
+    draw.text(tl4p, dolby, font=title_font2, fill=(0, 0, 0, 0))
+    # small title 2 - linia #1
+    tl1w, tl1h = draw.textsize(artist1 + " - " + title1, title_font2)
+    tl1p = ((image_w - tl1w) / 2, 378+20)
+    draw.text(tl1p, artist1 + " - " + title1, font=title_font2, fill=(0, 0, 0, 0), align="center")
+    # small title 2 - linia #2
+    tl2w, tl2h = draw.textsize(artist2 + " - " + title2, title_font2)
+    tl2p = ((image_w - tl2w) / 2, 378+105)
+    draw.text(tl2p, artist2 + " - " + title2, font=title_font2, fill=(0, 0, 0, 0))
+    # small title 3 - linia #3
+    tl3w, tl3h = draw.textsize(label + " - " + code, title_font2)
+    tl3p = ((image_w - tl3w) / 2, 378+190)
+    draw.text(tl3p, label + " - " + code, font=title_font2, fill=(0, 0, 0, 0))
+    # zapis obrazu
+    if os.path.exists("covers/" + projectname):
+        pass
+    else:
+        os.mkdir("covers/" + projectname)
+        os.mkdir("covers/" + projectname + "/build")
+    im.save("covers/" + projectname + '/build/tape_spine.jpg', quality=95)
 
 
 def createsongs_1(projectname, side_a, side_b):
@@ -191,8 +250,40 @@ def createsongs_1(projectname, side_a, side_b):
     im.save("covers/" + projectname + '/build/tape_songs.jpg', quality=95)
 
 
-def createsongs_2():
-    pass
+def createsongs_2(projectname, side_a, side_b):
+    # nowy obraz
+    image_w, image_h = 2410, 1545
+    im = Image.new('RGB', (image_w, image_h), (255, 255, 255))
+    # import fontów
+    title_font1 = ImageFont.truetype('./fonts/TTWPGOTT.ttf', 70)
+    # rysowanie linii marginesów
+    draw = ImageDraw.Draw(im)
+    # poziome linie
+    draw.line((0, 3, 2410, 3), fill=(0, 0, 0), width=8)
+    draw.line((0, 1541, 2410, 1541), fill=(0, 0, 0), width=8)
+    # pionowe linie
+    draw.line((3, 0, 3, 1545), fill=(0, 0, 0), width=8)
+    draw.line((2406, 0, 2406, 1545), fill=(0, 0, 0), width=8)
+    draw.line((image_w / 2 - 4, 0, image_w / 2 - 4, 1545), fill=(0, 0, 0), width=8)
+    height_increment = 70
+    side_a = side_a.split("\n")
+    side_b = side_b.split("\n")
+    for i, txt in enumerate(side_a):
+        # song_w, song_h = draw.textsize(side_a_list[i], title_font1)
+        song_p = (50, 20 + height_increment * i)
+        draw.text(song_p, txt, font=title_font1, fill=(0, 0, 0, 0), align="center")
+    # small title 1 - linia #2
+    for i, txt in enumerate(side_b):
+        # song_w, song_h = draw.textsize(side_a_list[i], title_font1)
+        song_p = (1255, 20 + height_increment * i)
+        draw.text(song_p, txt, font=title_font1, fill=(0, 0, 0, 0), align="center")
+    # zapis obrazu
+    if os.path.exists("covers/" + projectname):
+        pass
+    else:
+        os.mkdir("covers/" + projectname)
+        os.mkdir("covers/" + projectname + "/build")
+    im.save("covers/" + projectname + '/build/tape_songs.jpg', quality=95)
 
 
 def compile(projectname):
@@ -218,12 +309,20 @@ def savecover():
 
 
 def loadimage1(main_window, filepath):
+    if os.path.exists("preview/"):
+        pass
+    else:
+        os.mkdir("preview/")
     cover = Image.open(filepath)
     cover = cover.resize((200, 200))
     cover.save("preview/cover1.png")
     main_window.Element("image1").update(filename="preview/cover1.png")
 
 def loadimage2(main_window, filepath):
+    if os.path.exists("preview/"):
+        pass
+    else:
+        os.mkdir("preview/")
     cover = Image.open(filepath)
     cover = cover.resize((200, 200))
     cover.save("preview/cover2.png")
@@ -469,10 +568,19 @@ def jcard_creator():
                     title2 = values["title_2"]
                     label = values["label"]
                     code = values["code"]
+                    side_a = "A\n------------------------------------\n" + values["songs_a"]
+                    side_b = "B\n------------------------------------\n" + values["songs_b"]
                     createcover_2(projectname, filebrowse1, filebrowse2, artist1, title1, artist2, title2, dolby, label, code)
+                    createspine_2(projectname, artist1, title1, artist2, title2, dolby, label, code)
+                    createsongs_2(projectname, side_a, side_b)
+                    compile(projectname)
         window.close()
 
 
 if __name__ == '__main__':
+    if os.path.exists("covers/"):
+        pass
+    else:
+        os.mkdir("covers/")
     db.initialize()
     jcard_creator()
