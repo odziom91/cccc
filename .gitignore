@@ -1,3 +1,5 @@
 .venv/*
 covers/*
 preview/*
+test/*
+output/*
